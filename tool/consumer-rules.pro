@@ -2,6 +2,7 @@
 -keep class com.whiner.**{*;}
 -dontwarn com.whiner.**
 
+
 # OkHttp3
 -keepattributes Signature
 -keepattributes *Annotation*
@@ -10,18 +11,25 @@
 -dontwarn okhttp3.**
 -dontwarn okio.**
 
+
 #Eventbus
 -keepattributes *Annotation*
 -keepclassmembers class * {
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
 -keep enum org.greenrobot.eventbus.ThreadMode {*;}
-
-# If using AsyncExecutord, keep required constructor of default event used.
-# Adjust the class name if a custom failure event type is used.
 -keepclassmembers class org.greenrobot.eventbus.util.ThrowableFailureEvent {
     <init>(java.lang.Throwable);
 }
-
-# Accessed via reflection, avoid renaming or removal
 -keep class org.greenrobot.eventbus.android.AndroidComponentsImpl
+
+
+# Gson
+-keepattributes Signature
+-keep class com.google.gson.reflect.TypeToken { *; }
+-keep class * extends com.google.gson.reflect.TypeToken
+
+
+# 下载组件
+-keep class com.liulishuo.okdownload.**{*;}
+-dontwarn edu.umd.cs.findbugs.annotations.SuppressFBWarnings
