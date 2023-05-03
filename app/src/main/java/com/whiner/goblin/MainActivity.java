@@ -1,23 +1,32 @@
 package com.whiner.goblin;
 
-import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.blankj.utilcode.util.PathUtils;
+import com.google.gson.reflect.TypeToken;
 import com.whiner.goblin.databinding.ActivityMainBinding;
+import com.whiner.goblin.ui.WidgetActivity;
 import com.whiner.tool.download.OkDownDialog;
+import com.whiner.tool.net.NetUtils;
+import com.whiner.tool.net.OnNetListener;
+import com.whiner.tool.net.base.GetRequest;
+import com.whiner.tool.net.base.NetResult;
 import com.whiner.tool.ui.base.BaseActivity;
+
+import java.util.Date;
+
+import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private static final String TAG = "MainActivity";
 
-    private static final String JSON = "{\"data\":{\"apk_version\":1,\"apk_file\":\"http://101.133.235.5:86/assets/img/qrcode.png\",\"apk_bg_image\":\"http://101.133.235.5:86/assets/img/qrcode.png\",\"apk_home_skin\":\"skin_1\",\"apk_home_logo_image\":\"http://101.133.235.5:86/assets/img/qrcode.png\",\"apk_home_msg\":\"游字\",\"mqtt_url\":\"www.baidu.com\",\"mqtt_taps\":\"123,7887\",\"shop_qrcode_image\":\"http://101.133.235.5:86/assets/img/qrcode.png\",\"shop_qrcode_tip\":\"提示\",\"home_data_version\":\"123456\"},\"total\":0,\"code\":200,\"page\":0,\"msg\":\"请求成功\"}";
+    private static final String apk_url1 = "http://down.wireless-tech.cn/resourceDown/HX-AT-MESH-APK/hx-mesh-release-v0.1.0.apk";
+    private static final String apk_url2 = "http://file.mounriver.com/upgrade/MounRiver_Studio_Setup_V184.zip";
 
-
-    private static final String url = "http://down.wireless-tech.cn/resourceDown/HX-AT-MESH-APK/hx-mesh-release-v0.1.0.apk";
-
-    private static final String url1 = "http://file.mounriver.com/upgrade/MounRiver_Studio_Setup_V184.zip";
+    private static final String url1 = "http://www.bai1du.com/";
+    private static final String url2 = "http://101.133.235.5:8686/api/settings/getSettings";
 
     @Override
     public ActivityMainBinding getViewBinding() {
@@ -26,27 +35,79 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initView() {
-        viewBinding.tvTtt.setOnClickListener(new View.OnClickListener() {
+        viewBinding.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //showAAA();
-
-                OkDownDialog okDownDialog = new OkDownDialog("下载安装", "爱奇艺", url1, PathUtils.getExternalAppDataPath());
+                getNetworking();
+            }
+        });
+        viewBinding.btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WidgetActivity.start();
+            }
+        });
+        viewBinding.btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OkDownDialog okDownDialog = new OkDownDialog("爱奇艺", "下载安装", apk_url1, PathUtils.getExternalAppDataPath());
                 okDownDialog.showFragment(getSupportFragmentManager());
-
+            }
+        });
+        viewBinding.btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OkDownDialog okDownDialog = new OkDownDialog("腾讯视频", "下载安装", apk_url2, PathUtils.getExternalAppDataPath());
+                okDownDialog.showFragment(getSupportFragmentManager());
             }
         });
     }
 
+    private Disposable disposable;
 
-    private void showAAA() {
-        showLoadingView("ssss");
-        new Handler().postDelayed(new Runnable() {
+    private void getNetworking() {
+        GetRequest getRequest = new GetRequest();
+        getRequest.setKey("setting");
+        getRequest.setUrl1(url1);
+        getRequest.setUrl2(url2);
+        getRequest.setCacheTime(5000);
+        getRequest.setCacheType(GetRequest.CacheType.ONLY_CACHE);
+        NetUtils.ONE.get(getRequest, new OnNetListener<NetResult<SettingsBean>>() {
             @Override
-            public void run() {
+            public TypeToken<NetResult<SettingsBean>> getTypeToken() {
+                return new TypeToken<NetResult<SettingsBean>>() {
+                };
+            }
+
+            @Override
+            public void onStart(Disposable d) {
+                Log.d(TAG, "onStart: 请求开始");
+                if (disposable != null && !disposable.isDisposed()) {
+                    disposable.dispose();
+                }
+                disposable = d;
+                showLoadingView("请求中...");
+            }
+
+            @Override
+            public void onSucceeded(NetResult<SettingsBean> data, boolean isCache) {
+                Log.d(TAG, "onSucceeded: 请求成功 " + data + " - " + isCache);
+                String text = getRequest + (isCache ? "\n\n\n读取的缓存\n\n\n" : "\n\n\n实时的请求\n\n\n") + new Date() + "\n\n\n" + data;
+                viewBinding.msg.setText(text);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "onFailed: ", e);
+            }
+
+            @Override
+            public void onEnd() {
+                Log.d(TAG, "onEnd: 请求结束");
                 hideLoadingView();
             }
-        }, 5000);
+        });
+
     }
 
     @Override

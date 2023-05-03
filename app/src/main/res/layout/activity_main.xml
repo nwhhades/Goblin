@@ -7,31 +7,59 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tv_ttt"
-        android:layout_width="wrap_content"
+        android:id="@+id/msg"
+        android:layout_width="1200pt"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_bg_card1"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:padding="100pt"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="100pt"
+        android:textColor="@color/white"
+        android:textSize="40pt"
+        app:layout_constraintStart_toStartOf="@id/btn1"
+        app:layout_constraintTop_toBottomOf="@id/btn1" />
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/btn1"
+        style="@style/TvButton"
+        android:layout_width="600pt"
+        android:layout_height="200pt"
+        android:layout_margin="100pt"
+        android:checked="true"
+        android:text="网络请求"
+        android:theme="@style/TvButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="200pt"
-        android:background="@drawable/btn_bg_card1"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:text="@string/app_name"
-        android:textSize="40sp"
-        app:layout_constraintStart_toEndOf="@id/tv_ttt"
-        app:layout_constraintTop_toTopOf="@id/tv_ttt" />
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/btn2"
+        style="@style/TvButton"
+        android:layout_width="600pt"
+        android:layout_height="200pt"
+        android:layout_marginStart="100pt"
+        android:text="UI组件"
+        android:theme="@style/TvButton"
+        app:layout_constraintStart_toEndOf="@id/btn1"
+        app:layout_constraintTop_toTopOf="@id/btn1" />
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/btn3"
+        style="@style/TvButton"
+        android:layout_width="600pt"
+        android:layout_height="200pt"
+        android:layout_marginStart="100pt"
+        android:text="下载安装1"
+        android:theme="@style/TvButton"
+        app:layout_constraintStart_toEndOf="@id/btn2"
+        app:layout_constraintTop_toTopOf="@id/btn2" />
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/btn4"
+        style="@style/TvButton"
+        android:layout_width="600pt"
+        android:layout_height="200pt"
+        android:layout_marginStart="100pt"
+        android:text="下载安装2"
+        android:theme="@style/TvButton"
+        app:layout_constraintStart_toEndOf="@id/btn3"
+        app:layout_constraintTop_toTopOf="@id/btn3" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

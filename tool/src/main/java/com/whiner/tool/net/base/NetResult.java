@@ -1,4 +1,4 @@
-package com.whiner.goblin;
+package com.whiner.tool.net.base;
 
 import androidx.annotation.NonNull;
 
@@ -41,4 +41,5 @@ public class NetResult<T> {
                 ", data=" + data +
                 '}';
     }
+
 }
