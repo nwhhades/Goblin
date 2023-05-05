@@ -6,6 +6,7 @@ import com.whiner.tool.cache.iface.IKVCache;
 public enum MMKVCache implements IKVCache {
     ONE;
 
+    private static final String KEY_TIME_SUFFIX = "_TIME";
     private final MMKV mmkv;
 
     MMKVCache() {
@@ -13,7 +14,7 @@ public enum MMKVCache implements IKVCache {
     }
 
     private String getKeySuffix() {
-        return "_TIME";
+        return KEY_TIME_SUFFIX;
     }
 
     @Override

@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         GetRequest getRequest = new GetRequest();
         getRequest.setKey("setting");
         getRequest.setUrl1(url1);
-        getRequest.setUrl2(url2);
+        getRequest.setUrl2(null);
         getRequest.setCacheTime(5000);
         getRequest.setCacheType(GetRequest.CacheType.ONLY_CACHE);
         NetUtils.ONE.get(getRequest, new OnNetListener<NetResult<SettingsBean>>() {
@@ -99,6 +99,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "onFailed: ", e);
+                String text = Log.getStackTraceString(e);
+                viewBinding.msg.setText(text);
             }
 
             @Override

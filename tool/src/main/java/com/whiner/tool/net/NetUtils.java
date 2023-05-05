@@ -1,7 +1,5 @@
 package com.whiner.tool.net;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.GsonUtils;
@@ -19,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 public enum NetUtils {
     ONE;
 
-    private static final String TAG = "NetUtils";
+    //private static final String TAG = "NetUtils";
     private final GetService getService;
 
     NetUtils() {
@@ -34,10 +32,10 @@ public enum NetUtils {
         T data;
         switch (cacheType) {
             case NO_CACHE:
-                Log.d(TAG, "get: 不用缓存");
+                //Log.d(TAG, "get: 不用缓存");
                 break;
             case ONLY_CACHE:
-                Log.d(TAG, "get: 用缓存，不再请求");
+                //Log.d(TAG, "get: 用缓存，不再请求");
                 data = readData(dataType, request.getKey());
                 if (data != null) {
                     onNetListener.onStart(null);
@@ -47,7 +45,7 @@ public enum NetUtils {
                 }
                 break;
             case FIRST_CACHE:
-                Log.d(TAG, "get: 用缓存，再次请求");
+                //Log.d(TAG, "get: 用缓存，再次请求");
                 data = readData(dataType, request.getKey());
                 if (data != null) {
                     onNetListener.onStart(null);

@@ -52,7 +52,7 @@ public class OkDownDialog extends AbsDownloadDialog {
                 onDownFail();
             }
             if (realCause != null) {
-                realCause.printStackTrace();
+                Log.e(TAG, "taskEnd: ", realCause);
             }
         }
     };

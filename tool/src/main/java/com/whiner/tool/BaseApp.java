@@ -6,6 +6,7 @@ import android.util.Log;
 import com.blankj.utilcode.util.Utils;
 import com.hjq.toast.Toaster;
 import com.tencent.mmkv.MMKV;
+import com.tencent.mmkv.MMKVLogLevel;
 import com.whiner.tool.toaster.BigBlackToastStyle;
 
 public abstract class BaseApp extends Application {
@@ -24,6 +25,7 @@ public abstract class BaseApp extends Application {
     private void initMMKV() {
         String root = MMKV.initialize(this);
         Log.d(TAG, "initMMKV: MMKV root is " + root);
+        MMKV.setLogLevel(MMKVLogLevel.LevelWarning);
     }
 
     protected void initToaster() {

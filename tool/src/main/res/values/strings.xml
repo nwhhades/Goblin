@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="iv">ImageView</string>
+    <string name="weather_err">暂无数据</string>
     <string name="title">标题</string>
     <string name="msg">内容</string>
     <string name="ok">确定</string>
