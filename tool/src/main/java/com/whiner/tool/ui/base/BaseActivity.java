@@ -53,8 +53,8 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
     }
 
     @Override
-    public void loadAppBackground(@NonNull Object src) {
-        if (ivAppBackground != null && !("".equals(src))) {
+    public void loadAppBackground(Object src) {
+        if (ivAppBackground != null && src != null) {
             Object srcTag = src.hashCode();
             Object tag = ivAppBackground.getTag();
             Log.d(TAG, "loadAppBackground: " + srcTag + " - " + tag);
@@ -79,6 +79,8 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
             if (resId != 0) {
                 src = resId;
             }
+        } else {
+            src = url;
         }
         return src;
     }

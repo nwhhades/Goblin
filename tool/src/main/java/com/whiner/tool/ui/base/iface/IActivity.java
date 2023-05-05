@@ -39,7 +39,7 @@ public interface IActivity<V extends ViewBinding> {
      *
      * @param src 图片资源
      */
-    void loadAppBackground(@NonNull Object src);
+    void loadAppBackground(Object src);
 
     /**
      * 读取APP背景地址
