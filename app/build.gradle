@@ -34,13 +34,13 @@ android {
         debug {
             debuggable true
             minifyEnabled true
-            signingConfig signingConfigs.sys
+            //signingConfig signingConfigs.sys
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             debuggable false
             minifyEnabled true
-            signingConfig signingConfigs.naizhe
+            //signingConfig signingConfigs.naizhe
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

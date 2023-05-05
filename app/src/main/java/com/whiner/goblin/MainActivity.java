@@ -13,6 +13,7 @@ import com.whiner.tool.net.OnNetListener;
 import com.whiner.tool.net.base.GetRequest;
 import com.whiner.tool.net.base.NetResult;
 import com.whiner.tool.ui.base.BaseActivity;
+import com.whiner.tool.weather.tianqi.TianqiFactory;
 
 import java.util.Date;
 
@@ -35,6 +36,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void initView() {
+
+        TianqiFactory.setTianqiApiUrl("https://www.yiketianqi.com/free/day?appid=43656176&appsecret=I42og6Lm");
+
         viewBinding.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
