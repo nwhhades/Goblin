@@ -37,23 +37,23 @@ public interface IActivity<V extends ViewBinding> {
     /**
      * 加载url到ImageView
      *
-     * @param url 图片地址
+     * @param src 图片资源
      */
-    void loadAppBackground(@NonNull String url);
+    void loadAppBackground(@NonNull Object src);
 
     /**
      * 读取APP背景地址
      *
-     * @return 背景地址
+     * @return 图片资源
      */
-    String readAppBackgroundSrc();
+    Object readAppBackgroundSrc();
 
     /**
      * 写入APP背景地址到缓存中
      *
-     * @param url 背景地址
+     * @param src 图片资源
      */
-    void writeAppBackgroundSrc(@NonNull String url);
+    void writeAppBackgroundSrc(@NonNull Object src);
 
     /**
      * 显示LoadingView

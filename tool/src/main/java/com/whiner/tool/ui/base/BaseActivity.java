@@ -23,7 +23,8 @@ import com.whiner.tool.ui.fragment.LoadingFragment;
 public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActivity implements IActivity<V> {
 
     private static final String TAG = "BaseActivity";
-    private static final String SP_KEY_APP_BACKGROUND = "SP_KEY_APP_BACKGROUND";
+    private static final String SP_KEY_APP_BACKGROUND_STRING = "SP_KEY_APP_BACKGROUND_STRING";
+    private static final String SP_KEY_APP_BACKGROUND_INT = "SP_KEY_APP_BACKGROUND_INT";
     protected V viewBinding;
     protected AppCompatImageView ivAppBackground;
     protected LoadingFragment loadingFragment;
@@ -52,16 +53,16 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
     }
 
     @Override
-    public void loadAppBackground(@NonNull String url) {
-        if (ivAppBackground != null && !("".equals(url))) {
-            Object srcTag = url.hashCode();
+    public void loadAppBackground(@NonNull Object src) {
+        if (ivAppBackground != null && !("".equals(src))) {
+            Object srcTag = src.hashCode();
             Object tag = ivAppBackground.getTag();
             Log.d(TAG, "loadAppBackground: " + srcTag + " - " + tag);
             if (srcTag.equals(tag)) {
                 Log.d(TAG, "loadAppBackground: 图片源的hashCode相同，跳过重新加载");
             } else {
                 Glide.with(this)
-                        .load(url)
+                        .load(src)
                         .dontAnimate()
                         .into(ivAppBackground);
                 ivAppBackground.setTag(srcTag);
@@ -70,13 +71,30 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
     }
 
     @Override
-    public String readAppBackgroundSrc() {
-        return SPUtils.getInstance().getString(SP_KEY_APP_BACKGROUND, "");
+    public Object readAppBackgroundSrc() {
+        Object src = null;
+        String url = SPUtils.getInstance().getString(SP_KEY_APP_BACKGROUND_STRING, null);
+        if (url == null) {
+            int resId = SPUtils.getInstance().getInt(SP_KEY_APP_BACKGROUND_INT, 0);
+            if (resId != 0) {
+                src = resId;
+            }
+        }
+        return src;
     }
 
     @Override
-    public void writeAppBackgroundSrc(@NonNull String url) {
-        SPUtils.getInstance().put(SP_KEY_APP_BACKGROUND, url);
+    public void writeAppBackgroundSrc(@NonNull Object src) {
+        if (src instanceof String) {
+            SPUtils.getInstance().put(SP_KEY_APP_BACKGROUND_STRING, src.toString());
+        } else if (src instanceof Integer) {
+            try {
+                int id = Integer.parseInt(src.toString());
+                SPUtils.getInstance().put(SP_KEY_APP_BACKGROUND_INT, id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
