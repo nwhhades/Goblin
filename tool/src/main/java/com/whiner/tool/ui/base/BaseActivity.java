@@ -89,6 +89,7 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
     public void writeAppBackgroundSrc(@NonNull Object src) {
         if (src instanceof String) {
             SPUtils.getInstance().put(SP_KEY_APP_BACKGROUND_STRING, src.toString());
+            SPUtils.getInstance().remove(SP_KEY_APP_BACKGROUND_INT);
         } else if (src instanceof Integer) {
             try {
                 int id = Integer.parseInt(src.toString());
@@ -96,6 +97,7 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            SPUtils.getInstance().remove(SP_KEY_APP_BACKGROUND_STRING);
         }
     }
 
