@@ -12,10 +12,18 @@ public class OnTvBannerListener implements View.OnKeyListener {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_LEFT:
-                        actionBanner(1, banner);
+                        try {
+                            actionBanner(1, banner);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         return true;
                     case KeyEvent.KEYCODE_DPAD_RIGHT:
-                        actionBanner(2, banner);
+                        try {
+                            actionBanner(2, banner);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         return true;
                     default:
                         break;
@@ -25,8 +33,8 @@ public class OnTvBannerListener implements View.OnKeyListener {
         return false;
     }
 
-    private void actionBanner(int action, TvBanner banner) {
-        int count = banner.getChildCount();
+    private void actionBanner(int action, TvBanner banner) throws Exception {
+        int count = banner.getData().size();
         int start = 0;
         int end = count - 1;
         int index;
