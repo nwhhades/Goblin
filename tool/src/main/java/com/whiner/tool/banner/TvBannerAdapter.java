@@ -1,37 +1,16 @@
 package com.whiner.tool.banner;
 
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import com.zhpan.bannerview.BaseBannerAdapter;
+import com.zhpan.bannerview.BaseViewHolder;
 
-import com.bumptech.glide.Glide;
-import com.whiner.tool.R;
-import com.youth.banner.adapter.BannerAdapter;
-import com.youth.banner.holder.BannerImageHolder;
-
-import java.util.List;
-
-public class TvBannerAdapter extends BannerAdapter<String, BannerImageHolder> {
-
-    public TvBannerAdapter(List<String> list) {
-        super(list);
-    }
+public abstract class TvBannerAdapter extends BaseBannerAdapter<String> {
 
     @Override
-    public BannerImageHolder onCreateHolder(ViewGroup parent, int viewType) {
-        ImageView imageView = new ImageView(parent.getContext());
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        //拉伸铺满
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        return new BannerImageHolder(imageView);
-    }
-
-    @Override
-    public void onBindView(BannerImageHolder holder, String data, int position, int size) {
-        Glide.with(holder.imageView)
-                .load(data)
-                .placeholder(R.drawable.img_bg)
-                .error(R.drawable.img_bg_err)
-                .into(holder.imageView);
+    protected void bindData(BaseViewHolder<String> holder, String data, int position, int pageSize) {
+        holder.itemView.setClickable(false);
+        holder.itemView.setFocusable(false);
+        holder.itemView.setFocusableInTouchMode(false);
+        holder.itemView.setOnClickListener(null);
     }
 
 }

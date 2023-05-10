@@ -130,10 +130,7 @@
         android:layout_height="720pt"
         android:layout_marginEnd="100pt"
         android:background="@drawable/btn_border"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:padding="@dimen/card_border_size"
-        app:banner_auto_loop="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progress_bar" />
 

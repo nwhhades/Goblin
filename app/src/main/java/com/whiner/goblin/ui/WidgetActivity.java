@@ -3,10 +3,7 @@ package com.whiner.goblin.ui;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.whiner.goblin.databinding.ActivityWidgetBinding;
-import com.whiner.tool.banner.TvBannerAdapter;
 import com.whiner.tool.ui.base.BaseActivity;
-import com.youth.banner.indicator.CircleIndicator;
-import com.youth.banner.transformer.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +43,12 @@ public class WidgetActivity extends BaseActivity<ActivityWidgetBinding> {
         stringList.add("https://img1.baidu.com/it/u=1839135015,723795615&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500");
         stringList.add("https://img0.baidu.com/it/u=922902802,2128943538&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800");
 
-        TvBannerAdapter tvBannerAdapter = new TvBannerAdapter(stringList);
-        viewBinding.banner.addBannerLifecycleObserver(this);
-        viewBinding.banner.setAdapter(tvBannerAdapter);
-        viewBinding.banner.setIndicator(new CircleIndicator(this));
-        viewBinding.banner.setPageTransformer(new ZoomOutPageTransformer());
+        PicBannerAdapter picBannerAdapter = new PicBannerAdapter();
+        viewBinding.banner.registerLifecycleObserver(getLifecycle());
+        viewBinding.banner.setAdapter(picBannerAdapter);
+        viewBinding.banner.create();
+
+        viewBinding.banner.refreshData(stringList);
     }
 
 }

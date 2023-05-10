@@ -3,8 +3,6 @@ package com.whiner.tool.banner;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.youth.banner.util.BannerUtils;
-
 public class OnTvBannerListener implements View.OnKeyListener {
 
     @Override
@@ -22,34 +20,29 @@ public class OnTvBannerListener implements View.OnKeyListener {
                     default:
                         break;
                 }
-            } else {
-                banner.start();
             }
         }
         return false;
     }
 
     private void actionBanner(int action, TvBanner banner) {
-        banner.stop();
-        int count = banner.getItemCount();
+        int count = banner.getChildCount();
+        int start = 0;
+        int end = count - 1;
         int index;
         if (action == 1) {
             //左
-            index = (banner.getCurrentItem() - 1) % count;
+            index = banner.getCurrentItem() - 1;
         } else {
             //右
-            index = (banner.getCurrentItem() + 1) % count;
+            index = banner.getCurrentItem() + 1;
         }
-        if (index == 0) {
-            index = banner.getRealCount();
+        if (index < start) {
+            index = end;
             banner.setCurrentItem(index, false);
-            int real = BannerUtils.getRealPosition(banner.isInfiniteLoop(), banner.getCurrentItem(), banner.getRealCount());
-            banner.getIndicator().onPageSelected(real);
-        } else if (index == count - 1) {
-            index = 1;
+        } else if (index > end) {
+            index = start;
             banner.setCurrentItem(index, false);
-            int real = BannerUtils.getRealPosition(banner.isInfiniteLoop(), banner.getCurrentItem(), banner.getRealCount());
-            banner.getIndicator().onPageSelected(real);
         } else {
             banner.setCurrentItem(index);
         }

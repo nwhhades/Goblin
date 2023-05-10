@@ -2,10 +2,11 @@ package com.whiner.tool.banner;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 
-import com.youth.banner.Banner;
+import com.zhpan.bannerview.BannerViewPager;
 
-public class TvBanner extends Banner<String, TvBannerAdapter> {
+public class TvBanner extends BannerViewPager<String> implements View.OnFocusChangeListener {
 
     public TvBanner(Context context) {
         this(context, null);
@@ -25,31 +26,23 @@ public class TvBanner extends Banner<String, TvBannerAdapter> {
      */
 
     private void initView() {
+        setClickable(true);
+        setFocusable(true);
+        setFocusableInTouchMode(true);
+        setOnFocusChangeListener(this);
         setOnKeyListener(new OnTvBannerListener());
-    }
-
-
-    /*
-    #修复4.4版本start多次的问题
-     */
-    private boolean looping = false;
-
-    @Override
-    public TvBanner start() {
-        if (!looping) {
-            super.start();
-            looping = true;
-        }
-        return this;
+        setAutoPlay(false);
     }
 
     @Override
-    public TvBanner stop() {
-        if (looping) {
-            super.stop();
-            looping = false;
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            setAutoPlay(false);
+            stopLoop();
+        } else {
+            setAutoPlay(true);
+            startLoop();
         }
-        return this;
     }
 
 }
