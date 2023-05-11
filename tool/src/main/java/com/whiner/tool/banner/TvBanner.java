@@ -6,8 +6,6 @@ import android.view.View;
 
 import com.zhpan.bannerview.BannerViewPager;
 
-import java.util.List;
-
 public class TvBanner extends BannerViewPager<String> implements View.OnFocusChangeListener {
 
     public TvBanner(Context context) {
@@ -28,9 +26,11 @@ public class TvBanner extends BannerViewPager<String> implements View.OnFocusCha
      */
 
     private void initView() {
+        /*能否获取焦点由用户自己决定
         setClickable(true);
         setFocusable(true);
         setFocusableInTouchMode(true);
+        */
         setOnFocusChangeListener(this);
         setOnKeyListener(new OnTvBannerListener());
     }

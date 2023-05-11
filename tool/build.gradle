@@ -56,6 +56,8 @@ dependencies {
     api 'com.github.getActivity:Toaster:12.2'
     //权限请求框架-不需要混淆 https://github.com/getActivity/XXPermissions
     api 'com.github.getActivity:XXPermissions:18.0'
+    //悬浮窗口-不需要混淆 https://github.com/getActivity/EasyWindow
+    api 'com.github.getActivity:EasyWindow:10.0'
     //缓存-不需要混淆
     api 'com.tencent:mmkv:1.2.15'
     //GSON-不需要混淆
