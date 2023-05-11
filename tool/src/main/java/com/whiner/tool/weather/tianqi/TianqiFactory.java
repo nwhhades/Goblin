@@ -17,7 +17,7 @@ import io.reactivex.disposables.Disposable;
 public class TianqiFactory implements WeatherFactory {
 
     private static final String TAG = "TianqiFactory";
-    private static final String defaultUrl = "https://v0.yiketianqi.com/free/day?appid=43656176&appsecret=I42og6Lm";
+    private static final String defaultUrl = "https://yiketianqi.com/free/day?appid=43656176&appsecret=I42og6Lm";
 
     public static String getTianqiApiUrl() {
         return SPUtils.getInstance().getString(TAG, defaultUrl);
@@ -38,8 +38,6 @@ public class TianqiFactory implements WeatherFactory {
         GetRequest request = new GetRequest();
         request.setKey(TAG);
         request.setUrl1(getTianqiApiUrl());
-        ///自动切换到备用的域名
-        request.setUrl2(getTianqiApiUrl().replace("v0.yiketianqi.com", "yiketianqi.com"));
         request.setCacheType(GetRequest.CacheType.ONLY_CACHE);
         request.setCacheTime(5 * 60 * 1000);
         NetUtils.ONE.get(request, new OnNetListener<TianqiBean>() {
