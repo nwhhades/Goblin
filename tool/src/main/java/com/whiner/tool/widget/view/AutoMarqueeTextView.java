@@ -23,7 +23,7 @@ public class AutoMarqueeTextView extends AppCompatTextView {
         initView();
     }
 
-    private void initView() {
+    protected void initView() {
         setSingleLine();
         setEllipsize(TextUtils.TruncateAt.MARQUEE);
         setMarqueeRepeatLimit(-1);

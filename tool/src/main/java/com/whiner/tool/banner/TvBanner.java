@@ -25,7 +25,7 @@ public class TvBanner extends BannerViewPager<String> implements View.OnFocusCha
     #添加按键处理
      */
 
-    private void initView() {
+    protected void initView() {
         /*能否获取焦点由用户自己决定
         setClickable(true);
         setFocusable(true);

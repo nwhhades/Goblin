@@ -35,3 +35,7 @@
 -keep,allowobfuscation,allowshrinking class io.reactivex.Maybe
 -keep,allowobfuscation,allowshrinking class io.reactivex.Observable
 -keep,allowobfuscation,allowshrinking class io.reactivex.Single
+
+# 轮播混淆
+-keep class androidx.recyclerview.widget.**{*;}
+-keep class androidx.viewpager2.widget.**{*;}
