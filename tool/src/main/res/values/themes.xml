@@ -39,7 +39,11 @@
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:textAlignment">gravity</item>
         <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
         <item name="android:textColor">@color/text_color</item>
+        <item name="android:paddingStart">30pt</item>
+        <item name="android:paddingEnd">30pt</item>
     </style>
 
     <style name="TvSwitch" parent="Theme.Material3.DayNight">

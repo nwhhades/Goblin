@@ -1,6 +1,7 @@
 package com.whiner.tool.ui.base;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,11 +20,27 @@ import com.whiner.tool.ui.base.iface.IFragment;
 
 public abstract class BaseDialogFragment<V extends ViewBinding> extends AppCompatDialogFragment implements IFragment<V> {
 
+    public interface OnActionListener {
+
+        void onAction(@NonNull BaseDialogFragment<?> dialogFragment, int btn_index);
+
+        default void onCancel(@NonNull DialogInterface dialog) {
+
+        }
+
+        default void onDismiss(@NonNull DialogInterface dialog) {
+
+        }
+
+    }
+
     private static final String TAG = "BaseDialogFragment";
 
     protected V viewBinding;
 
     protected boolean isShow;
+
+    protected OnActionListener onActionListener;
 
     @Override
     public void showFragment(@NonNull FragmentManager manager) {
@@ -54,6 +71,26 @@ public abstract class BaseDialogFragment<V extends ViewBinding> extends AppCompa
         View view = viewBinding.getRoot();
         initView();
         return view;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (onActionListener != null) {
+            onActionListener.onDismiss(dialog);
+        }
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (onActionListener != null) {
+            onActionListener.onCancel(dialog);
+        }
+    }
+
+    public void setOnActionListener(OnActionListener onActionListener) {
+        this.onActionListener = onActionListener;
     }
 
 }

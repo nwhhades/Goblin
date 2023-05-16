@@ -1,7 +1,10 @@
 package com.whiner.goblin;
 
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.PathUtils;
 import com.google.gson.reflect.TypeToken;
@@ -13,6 +16,8 @@ import com.whiner.tool.net.OnNetListener;
 import com.whiner.tool.net.base.GetRequest;
 import com.whiner.tool.net.base.NetResult;
 import com.whiner.tool.ui.base.BaseActivity;
+import com.whiner.tool.ui.base.BaseDialogFragment;
+import com.whiner.tool.ui.fragment.AlertFragment;
 import com.whiner.tool.weather.tianqi.TianqiFactory;
 
 import java.util.Date;
@@ -63,6 +68,32 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             public void onClick(View v) {
                 OkDownDialog okDownDialog = new OkDownDialog("腾讯视频", "下载安装", apk_url2, PathUtils.getExternalAppDataPath());
                 okDownDialog.showFragment(getSupportFragmentManager());
+            }
+        });
+
+
+        viewBinding.btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertFragment alertFragment = new AlertFragment("A","B","c12312312312312312","d12312312312312312312");
+                alertFragment.setOnActionListener(new BaseDialogFragment.OnActionListener() {
+                    @Override
+                    public void onAction(@NonNull BaseDialogFragment<?> dialogFragment, int btn_index) {
+                        Log.d(TAG, "onAction: " + btn_index);
+                    }
+
+                    @Override
+                    public void onDismiss(@NonNull DialogInterface dialog) {
+                        Log.d(TAG, "onDismiss: " + dialog);
+                    }
+
+                    @Override
+                    public void onCancel(@NonNull DialogInterface dialog) {
+                        Log.d(TAG, "onCancel: " + dialog);
+                    }
+
+                });
+                alertFragment.showFragment(getSupportFragmentManager());
             }
         });
     }
