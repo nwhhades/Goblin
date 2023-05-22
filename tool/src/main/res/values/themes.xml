@@ -4,7 +4,7 @@
     <style name="BaseAppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/window_bg</item>
+        <item name="android:windowBackground">@drawable/bg_app_main</item>
     </style>
 
     <style name="RoundedImageView" parent="android:Widget">
@@ -41,7 +41,7 @@
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
-        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColor">@color/btn_text_color</item>
         <item name="android:paddingStart">30pt</item>
         <item name="android:paddingEnd">30pt</item>
     </style>

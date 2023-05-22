@@ -63,7 +63,8 @@ public abstract class BaseActivity<V extends ViewBinding> extends AppCompatActiv
             } else {
                 Glide.with(this)
                         .load(src)
-                        .dontAnimate()
+                        .placeholder(R.drawable.bg_app_main)
+                        .error(R.color.tr)
                         .into(ivAppBackground);
                 ivAppBackground.setTag(srcTag);
             }
