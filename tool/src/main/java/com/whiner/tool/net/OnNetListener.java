@@ -16,4 +16,6 @@ public interface OnNetListener<T> {
 
     void onEnd();
 
+    String decode(String data);
+
 }

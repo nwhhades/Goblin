@@ -13,14 +13,18 @@ import com.whiner.goblin.ui.WidgetActivity;
 import com.whiner.tool.download.OkDownDialog;
 import com.whiner.tool.net.NetUtils;
 import com.whiner.tool.net.OnNetListener;
+import com.whiner.tool.net.base.CacheType;
 import com.whiner.tool.net.base.GetRequest;
 import com.whiner.tool.net.base.NetResult;
+import com.whiner.tool.net.base.PostRequest;
 import com.whiner.tool.ui.base.BaseActivity;
 import com.whiner.tool.ui.base.BaseDialogFragment;
 import com.whiner.tool.ui.fragment.AlertFragment;
 import com.whiner.tool.weather.tianqi.TianqiFactory;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
 
@@ -31,7 +35,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private static final String apk_url1 = "http://down.wireless-tech.cn/resourceDown/HX-AT-MESH-APK/hx-mesh-release-v0.1.0.apk";
     private static final String apk_url2 = "http://file.mounriver.com/upgrade/MounRiver_Studio_Setup_V184.zip";
 
-    private static final String url1 = "http://www.bai1du.com/";
+    private static final String url1 = "http://www.dfasdfasdfa.com/";
     private static final String url2 = "http://101.133.235.5:8686/api/settings/getSettings";
 
     @Override
@@ -47,7 +51,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         viewBinding.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getNetworking();
+                //getNetworking();
+                postData();
             }
         });
         viewBinding.btn2.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +80,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         viewBinding.btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertFragment alertFragment = new AlertFragment("A","B","c12312312312312312","d12312312312312312312");
+                AlertFragment alertFragment = new AlertFragment("A", "B", "c12312312312312312", "d12312312312312312312");
                 alertFragment.setOnActionListener(new BaseDialogFragment.OnActionListener() {
                     @Override
                     public void onAction(@NonNull BaseDialogFragment<?> dialogFragment, int btn_index) {
@@ -104,9 +109,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         GetRequest getRequest = new GetRequest();
         getRequest.setKey("setting");
         getRequest.setUrl1(url1);
-        getRequest.setUrl2(null);
+        getRequest.setUrl2(url2);
         getRequest.setCacheTime(5000);
-        getRequest.setCacheType(GetRequest.CacheType.ONLY_CACHE);
+        getRequest.setCacheType(CacheType.ONLY_CACHE);
         NetUtils.ONE.get(getRequest, new OnNetListener<NetResult<SettingsBean>>() {
             @Override
             public TypeToken<NetResult<SettingsBean>> getTypeToken() {
@@ -143,6 +148,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 Log.d(TAG, "onEnd: 请求结束");
                 hideLoadingView();
             }
+
+            @Override
+            public String decode(String data) {
+                Log.d(TAG, "decode: 请求到的原始数据");
+                return data;
+            }
         });
 
     }
@@ -151,6 +162,55 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+
+    private void postData() {
+        Map<String, Object> args = new HashMap<>();
+        args.put("name", 1);
+        args.put("message", "abc");
+
+        PostRequest postRequest = new PostRequest();
+        postRequest.setKey("post");
+        postRequest.setUrl1("http://192.168.50.52:8080/post");
+        postRequest.setUrl2("");
+        postRequest.setArgs(args);
+        postRequest.setCacheType(CacheType.ONLY_CACHE);
+        postRequest.setCacheTime(3000);
+
+        NetUtils.ONE.post(postRequest, new OnNetListener<String>() {
+            @Override
+            public TypeToken<String> getTypeToken() {
+                return new TypeToken<String>() {
+                };
+            }
+
+            @Override
+            public void onStart(Disposable d) {
+
+            }
+
+            @Override
+            public void onSucceeded(String data, boolean isCache) {
+                Log.d(TAG, "onSucceeded: " + data);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+
+            @Override
+            public void onEnd() {
+
+            }
+
+            @Override
+            public String decode(String data) {
+                return data;
+            }
+        });
+
     }
 
 }

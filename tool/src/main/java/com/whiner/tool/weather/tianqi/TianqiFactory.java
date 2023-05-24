@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.whiner.tool.R;
 import com.whiner.tool.net.NetUtils;
 import com.whiner.tool.net.OnNetListener;
+import com.whiner.tool.net.base.CacheType;
 import com.whiner.tool.net.base.GetRequest;
 import com.whiner.tool.weather.OnWeatherListener;
 import com.whiner.tool.weather.WeatherBean;
@@ -33,12 +34,13 @@ public class TianqiFactory implements WeatherFactory {
 
     @Override
     public void startGetWeather(OnWeatherListener onWeatherListener) {
+        Log.d(TAG, "startGetWeather: 开始天气更新");
         this.onWeatherListener = onWeatherListener;
         stopGetWeather();
         GetRequest request = new GetRequest();
         request.setKey(TAG);
         request.setUrl1(getTianqiApiUrl());
-        request.setCacheType(GetRequest.CacheType.ONLY_CACHE);
+        request.setCacheType(CacheType.ONLY_CACHE);
         request.setCacheTime(5 * 60 * 1000);
         NetUtils.ONE.get(request, new OnNetListener<TianqiBean>() {
             @Override
@@ -54,7 +56,7 @@ public class TianqiFactory implements WeatherFactory {
 
             @Override
             public void onSucceeded(TianqiBean data, boolean isCache) {
-                Log.d(TAG, "onSucceeded: 请求成功" + data);
+                Log.d(TAG, "onSucceeded: 请求成功" + data + " - " + isCache);
                 if (data != null && data.getCity() != null) {
                     WeatherBean weatherBean = new WeatherBean();
                     weatherBean.setCity(data.getCity());
@@ -79,11 +81,17 @@ public class TianqiFactory implements WeatherFactory {
             public void onEnd() {
 
             }
+
+            @Override
+            public String decode(String data) {
+                return data;
+            }
         });
     }
 
     @Override
     public void stopGetWeather() {
+        Log.d(TAG, "stopGetWeather: 停止天气更新");
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }

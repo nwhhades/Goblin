@@ -2,11 +2,14 @@ package com.whiner.tool.net.base;
 
 import androidx.annotation.NonNull;
 
-public class GetRequest {
+import java.util.Map;
+
+public class PostRequest {
 
     private String key;
     private String url1;
     private String url2;
+    private Map<String, Object> args;
     private CacheType cacheType = CacheType.NO_CACHE;
     private long cacheTime = 0;
 
@@ -38,6 +41,14 @@ public class GetRequest {
         this.url2 = url2;
     }
 
+    public Map<String, Object> getArgs() {
+        return args;
+    }
+
+    public void setArgs(Map<String, Object> args) {
+        this.args = args;
+    }
+
     public CacheType getCacheType() {
         return cacheType;
     }
@@ -57,10 +68,11 @@ public class GetRequest {
     @NonNull
     @Override
     public String toString() {
-        return "GetRequest{" +
+        return "PostRequest{" +
                 "key='" + key + '\'' +
                 ", url1='" + url1 + '\'' +
                 ", url2='" + url2 + '\'' +
+                ", args=" + args +
                 ", cacheType=" + cacheType +
                 ", cacheTime=" + cacheTime +
                 '}';
